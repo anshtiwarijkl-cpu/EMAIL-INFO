@@ -285,19 +285,20 @@ def scan_email():
 def health_check():
     """Health check endpoint"""
     return jsonify({
-        "status": "healthy",
-        "service": "MailXtract API v4.2",
-        "author": "Alok Thakur",
-        "youtube": "Firewall Breaker"
+        "status": "WORKING",
+        "service": "EMAIL API v1.0",
+        "owner": "ANSH TIWARI",
+        "channl": "https://t.me/premium_dark_33"
     })
 
 @app.route('/', methods=['GET'])
 def index():
     """Root endpoint with API info"""
     return jsonify({
-        "service": "MailXtract API v4.2",
-        "author": "Alok Thakur",
-        "youtube": "Firewall Breaker",
+      "status": "WORKING",
+        "service": "EMAIL API v1.0",
+        "owner": "ANSH TIWARI",
+        "channl": "https://t.me/premium_dark_33"
         "endpoints": {
             "scan": "/api/scan?email=example@domain.com",
             "health": "/api/health"
