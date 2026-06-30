@@ -11,11 +11,6 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-
-@app.route("/")
-def home():
-    return "Working"
-
 # ── Colour codes ────────────────────────────────────────────────────
 RED = "\033[31m"
 GRN = "\033[32m"
