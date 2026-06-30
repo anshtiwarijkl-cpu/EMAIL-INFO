@@ -1,4 +1,3 @@
-# index.py - Main API handler for Vercel
 import os
 import re
 import socket
