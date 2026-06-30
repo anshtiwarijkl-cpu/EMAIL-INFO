@@ -294,30 +294,30 @@ def health_check():
 @app.route('/', methods=['GET'])
 def index():
     """Root endpoint with API info"""
-    return jsonify({
-      "status": "WORKING",
-        "service": "EMAIL API v1.0",
-        "owner": "ANSH TIWARI",
-        "channl": "https://t.me/premium_dark_33"
-        "endpoints": {
-            "scan": "/api/scan?email=example@domain.com",
-            "health": "/api/health"
-        },
-        "methods": ["GET", "POST"],
-        "features": [
-            "Email validation",
-            "Domain analysis",
-            "IP geolocation",
-            "MX records",
-            "SPF/DMARC checks",
-            "DNS lookup",
-            "Blacklist detection",
-            "Breach checking",
-            "Gravatar detection",
-            "WHOIS information",
-            "Disposable email detection"
-        ]
-    })
+   return jsonify({
+    "status": "WORKING",
+    "service": "EMAIL API v1.0",
+    "owner": "ANSH TIWARI",
+    "channl": "https://t.me/premium_dark_33",
+    "endpoints": {
+        "scan": "/api/scan?email=example@domain.com",
+        "health": "/api/health"
+    },
+    "methods": ["GET", "POST"],
+    "features": [
+        "Email validation",
+        "Domain analysis",
+        "IP geolocation",
+        "MX records",
+        "SPF/DMARC checks",
+        "DNS lookup",
+        "Blacklist detection",
+        "Breach checking",
+        "Gravatar detection",
+        "WHOIS information",
+        "Disposable email detection"
+    ]
+})
 
 # ── For local development ──────────────────────────────────────────
 if __name__ == "__main__":
