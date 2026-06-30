@@ -8,10 +8,15 @@ import whois
 from hashlib import md5
 from datetime import datetime, timezone
 from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route("/")
+def home():
+    return "Working"
 
 # ── Colour codes ────────────────────────────────────────────────────
 RED = "\033[31m"
