@@ -1,13 +1,5 @@
-# package.json - For Vercel deployment
 {
-  "name": "mailxtract-api",
-  "version": "4.2.0",
-  "description": "MailXtract Email Info Scanner API",
-  "author": "Alok Thakur",
-  "scripts": {
-    "vercel-build": "echo Hello"
-  },
-  "dependencies": {
-    "python": "^3.9"
-  }
+  "name": "email-info",
+  "version": "1.0.0",
+  "private": false
 }
