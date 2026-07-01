@@ -35,10 +35,140 @@ DISPOSABLE_DOMAINS = {
 
 # ── Offline breach demo DB ─────────────────────────────────────────
 DEMO_BREACH_DUMP = {
-    "john@example.com": ["DemoLeak2022"],
-    "alice@sample.net": ["OldBreach2019", "AnotherLeak2021"],
-    "test@demo.com": ["TestBreach2023"],
-    "admin@example.org": ["AdminLeak2020", "DataBreach2022"]
+    "john@example.com": [
+        {
+            "Name": "DemoLeak2022",
+            "Title": "Demo Leak 2022",
+            "Domain": "example.com",
+            "BreachDate": "2022-06-15",
+            "AddedDate": "2022-07-01",
+            "ModifiedDate": "2022-08-15",
+            "PwnCount": 1500000,
+            "Description": "A demo breach for testing purposes",
+            "LogoPath": "https://example.com/logo.png",
+            "Attribution": None,
+            "DisclosureUrl": "https://example.com/disclosure",
+            "DataClasses": ["Email addresses", "Passwords", "Usernames"],
+            "IsFabricated": False,
+            "IsSensitive": False,
+            "IsRetired": False,
+            "IsSpamList": False,
+            "IsMalware": False,
+            "IsSubscriptionFree": True,
+            "IsStealerLog": False
+        }
+    ],
+    "alice@sample.net": [
+        {
+            "Name": "OldBreach2019",
+            "Title": "Old Breach 2019",
+            "Domain": "sample.net",
+            "BreachDate": "2019-03-10",
+            "AddedDate": "2019-04-01",
+            "ModifiedDate": "2019-05-15",
+            "PwnCount": 500000,
+            "Description": "An older data breach",
+            "LogoPath": "https://sample.net/logo.png",
+            "Attribution": "Security Researcher",
+            "DisclosureUrl": "https://sample.net/disclosure",
+            "DataClasses": ["Email addresses", "IP addresses"],
+            "IsFabricated": False,
+            "IsSensitive": True,
+            "IsRetired": False,
+            "IsSpamList": False,
+            "IsMalware": False,
+            "IsSubscriptionFree": True,
+            "IsStealerLog": False
+        },
+        {
+            "Name": "AnotherLeak2021",
+            "Title": "Another Leak 2021",
+            "Domain": "sample.net",
+            "BreachDate": "2021-11-20",
+            "AddedDate": "2021-12-01",
+            "ModifiedDate": "2022-01-10",
+            "PwnCount": 2500000,
+            "Description": "Another data breach from 2021",
+            "LogoPath": "https://sample.net/logo2.png",
+            "Attribution": None,
+            "DisclosureUrl": "https://sample.net/disclosure2",
+            "DataClasses": ["Email addresses", "Passwords", "Phone numbers", "Names"],
+            "IsFabricated": False,
+            "IsSensitive": True,
+            "IsRetired": False,
+            "IsSpamList": False,
+            "IsMalware": False,
+            "IsSubscriptionFree": True,
+            "IsStealerLog": False
+        }
+    ],
+    "test@demo.com": [
+        {
+            "Name": "TestBreach2023",
+            "Title": "Test Breach 2023",
+            "Domain": "demo.com",
+            "BreachDate": "2023-01-05",
+            "AddedDate": "2023-02-01",
+            "ModifiedDate": "2023-03-15",
+            "PwnCount": 100000,
+            "Description": "A test breach for demonstration",
+            "LogoPath": "https://demo.com/logo.png",
+            "Attribution": None,
+            "DisclosureUrl": "https://demo.com/disclosure",
+            "DataClasses": ["Email addresses", "Passwords"],
+            "IsFabricated": True,
+            "IsSensitive": False,
+            "IsRetired": False,
+            "IsSpamList": False,
+            "IsMalware": False,
+            "IsSubscriptionFree": False,
+            "IsStealerLog": False
+        }
+    ],
+    "admin@example.org": [
+        {
+            "Name": "AdminLeak2020",
+            "Title": "Admin Leak 2020",
+            "Domain": "example.org",
+            "BreachDate": "2020-08-15",
+            "AddedDate": "2020-09-01",
+            "ModifiedDate": "2020-10-15",
+            "PwnCount": 750000,
+            "Description": "An admin data breach",
+            "LogoPath": "https://example.org/logo.png",
+            "Attribution": None,
+            "DisclosureUrl": "https://example.org/disclosure",
+            "DataClasses": ["Email addresses", "Passwords", "Admin credentials"],
+            "IsFabricated": False,
+            "IsSensitive": True,
+            "IsRetired": False,
+            "IsSpamList": False,
+            "IsMalware": False,
+            "IsSubscriptionFree": True,
+            "IsStealerLog": False
+        },
+        {
+            "Name": "DataBreach2022",
+            "Title": "Data Breach 2022",
+            "Domain": "example.org",
+            "BreachDate": "2022-04-10",
+            "AddedDate": "2022-05-01",
+            "ModifiedDate": "2022-06-15",
+            "PwnCount": 3000000,
+            "Description": "A major data breach in 2022",
+            "LogoPath": "https://example.org/logo2.png",
+            "Attribution": "Security Team",
+            "DisclosureUrl": "https://example.org/disclosure2",
+            "DataClasses": ["Email addresses", "Passwords", "Phone numbers", "Names", "Addresses"],
+            "IsFabricated": False,
+            "IsSensitive": True,
+            "IsRetired": False,
+            "IsSpamList": False,
+            "IsMalware": False,
+            "IsSubscriptionFree": True,
+            "IsStealerLog": False
+        }
+    ]
 }
 
 BLACKLIST_ZONES = ["multi.surbl.org", "zen.spamhaus.org", "bl.spamcop.net"]
@@ -198,10 +328,11 @@ def check_breaches(email: str):
         )
         if response.status_code == 200:
             hibp_data = response.json()
+            # Merge HIBP data with demo data
             for breach in hibp_data:
-                breach_name = breach.get("Name", "Unknown")
-                if breach_name not in breaches:
-                    breaches.append(breach_name)
+                # Check if breach already exists in our list
+                if not any(b.get('Name') == breach.get('Name') for b in breaches):
+                    breaches.append(breach)
     except:
         pass  # Silent fail for HIBP
     
